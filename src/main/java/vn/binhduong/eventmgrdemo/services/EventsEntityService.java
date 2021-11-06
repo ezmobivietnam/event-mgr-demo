@@ -65,7 +65,7 @@ public class EventsEntityService {
     }
 
     public CollectionModel<EventsDTO> findAllPaginated(PageRequest pageRequest) {
-        Assert.notNull(pageRequest, "PageRequest must not be null!");
+        Assert.notNull(pageRequest, "PageRequest must not be null");
         Page<EventsEntity> page = eventsEntityRepository.findAll(pageRequest);
         return pagedResourcesAssembler.toModel(page, eventsEntityAssembler);
     }
