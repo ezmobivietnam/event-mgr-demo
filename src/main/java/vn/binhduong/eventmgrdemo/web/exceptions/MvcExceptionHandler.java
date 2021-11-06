@@ -2,6 +2,7 @@ package vn.binhduong.eventmgrdemo.web.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -72,6 +73,14 @@ public class MvcExceptionHandler {
     public ResponseEntity<HttpStatus> dataNotFoundError(NoSuchElementException exc) {
         log.error("Data not found error", exc);
         return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, String>> databaseIntegrityError(DataIntegrityViolationException exc) {
+        log.error("Data integrity constraint error", exc);
+        Map<String, String> errors = new HashMap<>();
+        errors.put("DataIntegrityViolation", exc.getMessage());
+        return ResponseEntity.badRequest().body(errors);
     }
 
     @ExceptionHandler({SQLException.class, DataAccessException.class})
