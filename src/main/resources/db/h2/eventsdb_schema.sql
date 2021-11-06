@@ -1,7 +1,6 @@
 -- -----------------------------------------------------
 -- Schema eventsdb
 -- -----------------------------------------------------
--- CREATE SCHEMA IF NOT EXISTS `eventsdb` DEFAULT CHARACTER SET utf8 ;
 CREATE SCHEMA IF NOT EXISTS `eventsdb`;
 USE `eventsdb` ;
 
@@ -18,8 +17,8 @@ CREATE TABLE IF NOT EXISTS `events` (
   `end_date` DATETIME NOT NULL,
   `last_update_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
--- ENGINE = InnoDB
 ;
 
 -- CREATE UNIQUE INDEX `name_UNIQUE` ON `eventsdb`.`events` (`name` ASC) VISIBLE;
-CREATE UNIQUE INDEX `name_UNIQUE` ON `events` (`name` ASC);
+-- CREATE UNIQUE INDEX `EVT_UNIQUE` ON `eventsdb`.`events` (`name` ASC, `start_date` ASC, `end_date` ASC) VISIBLE;
+CREATE UNIQUE INDEX `EVT_UNIQUE` ON `eventsdb`.`events` (`name` ASC, `start_date` ASC, `end_date` ASC);

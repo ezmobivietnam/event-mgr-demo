@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `eventsdb`.`events` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `name_UNIQUE` ON `eventsdb`.`events` (`name` ASC) VISIBLE;
-
+-- CREATE UNIQUE INDEX `name_UNIQUE` ON `eventsdb`.`events` (`name` ASC) VISIBLE;
+CREATE UNIQUE INDEX `EVT_UNIQUE` ON `eventsdb`.`events` (`name` ASC, `start_date` ASC, `end_date` ASC) VISIBLE;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
