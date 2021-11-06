@@ -304,4 +304,14 @@ class EventsEntityRepositoryTest {
         assertTrue(pageContent.contains(entity1));
         assertTrue(pageContent.contains(entity2));
     }
+
+    /**
+     * Test findAll() with given pagination request is null
+     */
+    @Test
+    public void findAll_PageRequest_Given_NullPageRequest_Then_ThrowsNullPointerException() {
+        Exception exception = assertThrows(NullPointerException.class, () -> {
+            repository.findAll((PageRequest) null);
+        });
+    }
 }
