@@ -314,4 +314,14 @@ class EventsEntityRepositoryTest {
             repository.findAll((PageRequest) null);
         });
     }
+
+    /**
+     * Test if the repository return empty list in case there is no data in db.
+     */
+    @Test
+    public void findAll_Given_NoDataAvailable_Then_ReturnEmptyList() {
+        List<EventsEntity> result = repository.findAll();
+        assertNotNull(result);
+        assertTrue(result.size() == 0);
+    }
 }
