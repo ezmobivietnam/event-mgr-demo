@@ -1,1 +1,26 @@
-<p>events-list works!</p>
+<div class="card my-5">
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Start date</th>
+                <th scope="col">End date</th>
+<!--                <th scope="col">Last update</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let event of events">
+                <td>{{ event.id }}</td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.startDate }}</td>
+                <td>{{ event.endDate }}</td>
+<!--                <td>{{ event.lastUpdateDate }}</td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

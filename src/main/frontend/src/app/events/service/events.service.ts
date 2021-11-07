@@ -8,12 +8,19 @@ import {Event} from "../model/event";
 })
 export class EventsService {
 
+    private apiUrl: string;
+
     onTaskAdded = new EventEmitter<Task>();
 
     constructor(private http: HttpClient) {
+        this.apiUrl = '/api/simple/events';
     }
 
     public getEvents(): Observable<Event[]> {
-        return this.http.get<Event[]>('/api/simple/events');
+        return this.http.get<Event[]>('/api/simple/events'); // temporary API endpoint
+    }
+
+    public save(event: Event) {
+        return this.http.post<Event>(this.apiUrl, event);
     }
 }
