@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EventsService} from "../service/events.service";
 import {Event} from "../model/event";
-import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-events-list',
@@ -11,16 +10,26 @@ import {DatePipe} from "@angular/common";
 export class EventsListComponent implements OnInit {
 
     events: Event[] = [];
-    date : string = "";
 
-    constructor(private eventService: EventsService, private datePipe: DatePipe) {
+    constructor(private eventService: EventsService) {
     }
 
     ngOnInit(): void {
+        this.queryData();
+        // Reload the data when user added new event
+        this.eventService.onEventAdded.subscribe(
+            (event: Event) => {
+                this.queryData(); //reload the new data from server
+            });
+    }
+
+    /**
+     * Query events from server
+     */
+    queryData(): void {
         this.eventService.getEvents().subscribe(data => {
             this.events = data;
             console.log(data);
         });
     }
-
 }

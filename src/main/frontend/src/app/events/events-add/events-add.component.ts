@@ -14,28 +14,41 @@ export class EventsAddComponent implements OnInit {
     event: Event;
 
     constructor(private eventService: EventsService, private datePipe: DatePipe) {
-        this.UTC_FORMAT = 'yyyy-MM-ddThh:mm:ssZZZZZ';
+        this.UTC_FORMAT = 'yyyy-MM-ddTHH:mm:ssZZZZZ';
         this.event = new Event();
     }
 
     ngOnInit(): void {
     }
 
+    /**
+     * Submit data to server after user hit submit button
+     */
     onSubmit() {
-        // convert to UTC format before submit to server
-        console.log('===========');
-        console.log(this.event.startDate);
+        // console.log('===========');
+        // console.log(this.event.startDate);
+        //
+        // transform the date format to UTC before sending data to server
+        //
         this.event.startDate = this.datePipe.transform(this.event.startDate, this.UTC_FORMAT)
-        console.log(this.event.startDate);
-        console.log(this.event.endDate);
+        // console.log(this.event.startDate);
+
+
+        // console.log(this.event.endDate);
+        //
+        // transform the date format to UTC before sending data to server
+        //
         this.event.endDate = this.datePipe.transform(this.event.endDate, this.UTC_FORMAT)
-        console.log(this.event.endDate);
-        console.log('===========');
-        console.log(this.event);
+        // console.log(this.event.endDate);
+
+        // console.log('===========');
+        // console.log(this.event);
         this.eventService.save(this.event).subscribe(result => {
-            console.log(result)
-            console.log(this.event)
-            this.event = new Event();
+            // console.log("Submit event ok.")
+            this.eventService.onEventAdded.emit(result);
+            // console.log(result)
+            // console.log(this.event)
+            this.event = new Event(); //reset the form status
         });
     }
 }
