@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EventsService} from "../service/events.service";
 import {Event} from "../model/event";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-events-list',
@@ -10,8 +11,9 @@ import {Event} from "../model/event";
 export class EventsListComponent implements OnInit {
 
     events: Event[] = [];
+    date : string = "";
 
-    constructor(private eventService: EventsService) {
+    constructor(private eventService: EventsService, private datePipe: DatePipe) {
     }
 
     ngOnInit(): void {

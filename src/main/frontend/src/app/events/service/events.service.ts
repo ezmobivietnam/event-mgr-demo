@@ -13,7 +13,7 @@ export class EventsService {
     onTaskAdded = new EventEmitter<Task>();
 
     constructor(private http: HttpClient) {
-        this.apiUrl = '/api/simple/events';
+        this.apiUrl = '/api/events';
     }
 
     public getEvents(): Observable<Event[]> {

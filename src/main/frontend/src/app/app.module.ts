@@ -8,6 +8,7 @@ import { EventsListComponent } from './events/events-list/events-list.component'
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {EventsService} from "./events/service/events.service";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import {EventsService} from "./events/service/events.service";
       HttpClientModule,
       FormsModule
   ],
-  providers: [EventsService],
+  providers: [FormsModule, EventsService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
