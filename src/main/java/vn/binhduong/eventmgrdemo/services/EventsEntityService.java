@@ -34,6 +34,12 @@ public class EventsEntityService {
         this.pagedResourcesAssembler = pagedResourcesAssembler;
     }
 
+    /**
+     * Save the event
+     *
+     * @param eventsDTO
+     * @return
+     */
     public Long save(EventsDTO eventsDTO) {
         EventsEntity bean = new EventsEntity();
         BeanUtils.copyProperties(eventsDTO, bean);
@@ -41,21 +47,45 @@ public class EventsEntityService {
         return bean.getId();
     }
 
+    /**
+     * Delete an event
+     *
+     * @param id
+     */
     public void delete(Long id) {
         eventsEntityRepository.deleteById(id);
     }
 
+    /**
+     * Update an existing event.
+     *
+     * @param id
+     * @param eventsDTO
+     * @throws NoSuchElementException if event is not exist.
+     */
     public void update(Long id, EventsDTO eventsDTO) {
         EventsEntity bean = requireOne(id);
+        eventsDTO.setId(id);
         BeanUtils.copyProperties(eventsDTO, bean);
         eventsEntityRepository.save(bean);
     }
 
+    /**
+     * Get an event by id
+     *
+     * @param id
+     * @return
+     */
     public EventsDTO getById(Long id) {
         EventsEntity original = requireOne(id);
         return toDTO(original);
     }
 
+    /**
+     * Find all events
+     *
+     * @return
+     */
     public CollectionModel<EventsDTO> findAll() {
         List<EventsEntity> entities = eventsEntityRepository.findAll();
         CollectionModel<EventsDTO> collectionModel = eventsEntityAssembler.toCollectionModel(entities);
@@ -64,12 +94,24 @@ public class EventsEntityService {
         return collectionModel;
     }
 
+    /**
+     * Find events at a specific page.
+     *
+     * @param pageRequest
+     * @return
+     */
     public CollectionModel<EventsDTO> findAllPaginated(PageRequest pageRequest) {
         Assert.notNull(pageRequest, "PageRequest must not be null");
         Page<EventsEntity> page = eventsEntityRepository.findAll(pageRequest);
         return pagedResourcesAssembler.toModel(page, eventsEntityAssembler);
     }
 
+    /**
+     * Convert an entity to DTO object.
+     *
+     * @param original
+     * @return
+     */
     private EventsDTO toDTO(EventsEntity original) {
         EventsDTO bean = new EventsDTO();
         BeanUtils.copyProperties(original, bean);

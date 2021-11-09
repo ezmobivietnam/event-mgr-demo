@@ -1,5 +1,7 @@
 package vn.binhduong.eventmgrdemo.web.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import java.util.Objects;
 @Validated
 @RestController
 @RequestMapping(EventsEntityController.BASE_URL)
+@Tag(name = "CRUD Event APIs", description = "The APIs for CRUD data and support Spring HateOAS")
 public class EventsEntityController {
 
     public static final String BASE_URL = "/api/events";
@@ -28,22 +31,26 @@ public class EventsEntityController {
     }
 
     @PostMapping
+    @Operation(summary = "Add new event")
     public String save(@Valid @RequestBody EventsDTO eventsDTO) {
         return eventsEntityService.save(eventsDTO).toString();
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete an event")
     public void delete(@Valid @NotNull @PathVariable("id") Long id) {
         eventsEntityService.delete(id);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update an existing event")
     public void update(@Valid @NotNull @PathVariable("id") Long id,
                        @Valid @RequestBody EventsDTO eventsDTO) {
         eventsEntityService.update(id, eventsDTO);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get details information of an event")
     public EventsDTO getById(@Valid @NotNull @PathVariable("id") Long id) {
         return eventsEntityService.getById(id);
     }
@@ -54,6 +61,8 @@ public class EventsEntityController {
 //    }
 
     @GetMapping
+    @Operation(summary = "Query the events. This API support pagination when using with the two params {page} and " +
+            "{size}")
     public ResponseEntity<CollectionModel<EventsDTO>> query(
             @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "size", required = false) Integer size) {
