@@ -318,7 +318,7 @@ class EventsEntityControllerTest {
     void query_Given_NoParamsSpecified_Then_ReturnAllEventsWithSelfLink() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(END_POINT).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.eventsDTOList", hasSize(7)))
+                .andExpect(jsonPath("$._embedded.eventsDToes", hasSize(7)))
                 .andExpect(jsonPath("$._links.self.href", containsStringIgnoringCase("/api/events")));
     }
 
@@ -341,7 +341,7 @@ class EventsEntityControllerTest {
         String url = END_POINT + "?page=1&size=3";
         mockMvc.perform(get(url).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.eventsDTOList", hasSize(3)))
+                .andExpect(jsonPath("$._embedded.eventsDToes", hasSize(3)))
                 .andExpect(jsonPath("$._links.first.href", containsStringIgnoringCase("/api/events?page=0&size=3")))
                 .andExpect(jsonPath("$._links.prev.href", containsStringIgnoringCase("/api/events?page=0&size=3")))
                 .andExpect(jsonPath("$._links.self.href", containsStringIgnoringCase("/api/events?page=1&size=3")))
