@@ -34,20 +34,29 @@ export class EventsService {
     private handleError(error: HttpErrorResponse) {
         // console.log("error log start");
         // console.log(error);
+
         let errorMsg = error.message;
         if (error.message) {
-            let details = "";
-            for (const x in error.error) {
-                details += '\n';
-                details += x + ": " + error.error[x];
+            if (error.status == 504) {//504 (Gateway Timeout)
+                // do nothing because the two object error.message and error.error is similar
+            } else {
+                let details = "";
+                for (const x in error.error) {
+                    details += '\n';
+                    details += x + ": " + error.error[x];
+                }
+                errorMsg += details;
             }
-            errorMsg += details;
         }
 
         // console.log(errorMsg);
         // console.log("error log end");
         window.alert(errorMsg);
         return throwError('Error occurs from server')
+    }
+
+    private isString(value: any) {
+        return typeof value === 'string' || value instanceof String;
     }
 
 }
