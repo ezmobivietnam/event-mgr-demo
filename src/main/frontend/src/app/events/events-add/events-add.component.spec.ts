@@ -3,6 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {EventsAddComponent} from './events-add.component';
 import {EventsService} from "../service/events.service";
 import {DatePipe} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 describe('EventsAddComponent', () => {
     let component: EventsAddComponent;
@@ -10,6 +11,7 @@ describe('EventsAddComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
+            imports: [FormsModule],
             declarations: [EventsAddComponent],
             providers: [
                 {provide: EventsService, useValue: jasmine.createSpyObj('EventsService', ['getEvents', 'save'])},
